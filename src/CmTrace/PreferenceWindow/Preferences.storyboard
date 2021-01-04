@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="qBN-B2-RHH">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="uBh-s4-Csh">
+            <objects>
+                <windowController id="qBN-B2-RHH" customClass="PreferenceWindowController" customModule="CmTrace2" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="bpa-7d-gdp">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="425" y="462" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+                        <view key="contentView" id="laJ-L8-bZY">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="qBN-B2-RHH" id="dFQ-et-LL9"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="TrY-Ce-HQx" kind="relationship" relationship="window.shadowedContentViewController" id="OQc-pj-ZeL"/>
+                    </connections>
+                </windowController>
+                <customObject id="8GF-RK-fkE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-34" y="93"/>
+        </scene>
+        <!--Preference Tab View Controller-->
+        <scene sceneID="fy9-5i-bmX">
+            <objects>
+                <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="TrY-Ce-HQx" customClass="PreferenceTabViewController" customModule="CmTrace2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem image="gear" catalog="system" id="8iq-M0-fjC"/>
+                    </tabViewItems>
+                    <viewControllerTransitionOptions key="transitionOptions" allowUserInteraction="YES"/>
+                    <tabView key="tabView" type="noTabsNoBorder" id="CRK-02-wVy">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <connections>
+                            <outlet property="delegate" destination="TrY-Ce-HQx" id="YED-b5-c4a"/>
+                        </connections>
+                    </tabView>
+                    <connections>
+                        <outlet property="tabView" destination="CRK-02-wVy" id="fDJ-uf-SCi"/>
+                        <segue destination="5dD-YO-hcV" kind="relationship" relationship="tabItems" id="rNn-bd-COP"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="cKi-AN-mZf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-49" y="541"/>
+        </scene>
+        <!--General-->
+        <scene sceneID="Haz-N2-9RG">
+            <objects>
+                <viewController title="General" id="5dD-YO-hcV" customClass="GeneralPreferenceController" customModule="CmTrace2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="ND5-Su-SKS">
+                        <rect key="frame" x="0.0" y="0.0" width="288" height="138"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LdZ-PI-hBJ">
+                                <rect key="frame" x="20" y="101" width="250" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="0KT-Iv-uKv"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Display Open File Dialog:" bezelStyle="regularSquare" imagePosition="right" alignment="left" state="on" inset="2" id="bSo-ib-L3w">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openFileDialogClicked:" target="5dD-YO-hcV" id="BWi-OC-qxW"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mzg-cv-aZF">
+                                <rect key="frame" x="20" y="60" width="250" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="dF5-nT-PZu"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Highlight Error Messages:" bezelStyle="regularSquare" imagePosition="right" alignment="left" state="on" inset="2" id="8G6-3x-hgK">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="highlightErrorClicked:" target="5dD-YO-hcV" id="P6R-6e-khy"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x57-yd-bEL">
+                                <rect key="frame" x="20" y="19" width="250" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="zLz-AX-gpw"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Highlight Warning Messages:" bezelStyle="regularSquare" imagePosition="right" alignment="left" state="on" inset="2" id="sXA-DC-NBO">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="highlightWarningClicked:" target="5dD-YO-hcV" id="SRb-nh-f0X"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="x57-yd-bEL" firstAttribute="leading" secondItem="ND5-Su-SKS" secondAttribute="leading" constant="20" symbolic="YES" id="AHD-Xu-BWm"/>
+                            <constraint firstItem="Mzg-cv-aZF" firstAttribute="top" secondItem="LdZ-PI-hBJ" secondAttribute="bottom" constant="25" id="JKr-yf-Tsc"/>
+                            <constraint firstItem="Mzg-cv-aZF" firstAttribute="leading" secondItem="ND5-Su-SKS" secondAttribute="leading" constant="20" symbolic="YES" id="MgD-Pv-SHx"/>
+                            <constraint firstItem="LdZ-PI-hBJ" firstAttribute="leading" secondItem="ND5-Su-SKS" secondAttribute="leading" constant="20" symbolic="YES" id="Vg0-Qd-Ly8"/>
+                            <constraint firstItem="LdZ-PI-hBJ" firstAttribute="top" secondItem="ND5-Su-SKS" secondAttribute="top" constant="20" symbolic="YES" id="jzo-7M-ncl"/>
+                            <constraint firstItem="x57-yd-bEL" firstAttribute="top" secondItem="Mzg-cv-aZF" secondAttribute="bottom" constant="25" id="lPM-fV-ylB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="highlightError" destination="Mzg-cv-aZF" id="Nun-GA-uh5"/>
+                        <outlet property="highlightWarning" destination="x57-yd-bEL" id="RlQ-2E-mRF"/>
+                        <outlet property="openFileDialog" destination="LdZ-PI-hBJ" id="hxQ-0o-S9g"/>
+                    </connections>
+                </viewController>
+                <customObject id="alX-aM-o81" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-527" y="1006"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="17" height="17"/>
+    </resources>
+</document>

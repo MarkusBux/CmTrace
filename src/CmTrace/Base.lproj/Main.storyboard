@@ -562,13 +562,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="45" horizontalPageScroll="10" verticalLineScroll="45" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-gY-v5b">
-                                <rect key="frame" x="0.0" y="0.0" width="944" height="282"/>
+                                <rect key="frame" x="0.0" y="0.0" width="944" height="226"/>
                                 <clipView key="contentView" drawsBackground="NO" id="bvB-C0-nKO">
-                                    <rect key="frame" x="1" y="1" width="942" height="280"/>
+                                    <rect key="frame" x="1" y="1" width="942" height="224"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" headerView="lW7-3T-aUp" viewBased="YES" id="Pyl-xM-0hf">
-                                            <rect key="frame" x="0.0" y="0.0" width="942" height="252"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="942" height="196"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -10,13 +10,16 @@ import Combine
 import os
 
 class CmLogItems {
-    //private var dataLoader: LogItemProvider<CmTraceParser>
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "\(CmLogItems.self)")
+    
     private let parser = CmTraceParser()
     private var logItems:[URL:[LogItem]] {
         didSet {
+            logger.debug("Setting value for internal logItems.")
             self.entries = logItems.values.flatMap({$0})
             self.loadedFiles = logItems.keys.map({$0})
             self.totalEntriesCount = self.entries.count
+            logger.debug("Loaded '\(self.totalEntriesCount)' entries in total")
         }
     }
     
@@ -42,18 +45,19 @@ class CmLogItems {
     /// Load all items from the requested files asynchronously
     func loadFileEntries(for files:[URL], onFileProcessed: ((URL) -> Void)? = nil ,onComplete:((_ files:[URL], _ loadedLogItems:[LogItem]?) -> Void)? = nil) {
         let lock = NSLock()
-        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "\(CmLogItems.self)")
         
         var result:[URL: [LogItem]] = [:]
         
         let grp = DispatchGroup()
         
+        logger.debug("Queuing parsing jobs for '\(files.count)' file(s)")
         let _ = DispatchQueue.global(qos: .userInitiated)
         DispatchQueue.concurrentPerform(iterations: files.count) { [weak self] idx in
             grp.enter()
             let file = files[idx]
             do {
                 if let items = try self?.parser.parseFile(file) {
+                    logger.debug("Retrieved '\(items.count)' entries from file '\(file)'")
                     let logItems = items.compactMap( {item in
                         LogItem(cmLogItem: item)
                     })
@@ -61,6 +65,8 @@ class CmLogItems {
                     result[file] = logItems
                     lock.unlock()
                     onFileProcessed?(file)
+                } else {
+                    logger.error("self is nil. Cannot parse file!")
                 }
             }
             catch {

@@ -31,7 +31,7 @@ class CmTraceParser {
     /// - Returns: The parsed Configuration Manager log entries per file
     func parseFile (_ file:URL, onParsingError: ((Error, URL, String) -> Void)? = {_,_,_ in }) throws -> [CmLogElement]{
         var result:[CmLogElement] = []
-        logger.debug("*** Start Processing '\(file)' ***")
+        logger.debug("*** Start Processing '\(file, privacy: .public)' ***")
         guard let logLines = try readFileContent(from: file) else { return result }
         
         let _ = DispatchQueue.global(qos: .userInitiated)
@@ -45,11 +45,11 @@ class CmTraceParser {
                 }
             }
             catch {
-                logger.error("Error: \(error.localizedDescription)\nFile: \(file)\nValue: \(logLine)")
+                logger.error("Error: \(error.localizedDescription)\nFile: \(file, privacy: .public)\nValue: \(logLine, privacy: .public)")
                 onParsingError?(error, file, logLine)
             }
         }
-        logger.debug("*** End Processing '\(file)' ***")
+        logger.debug("*** End Processing '\(file, privacy: .public)' ***")
         return result
     }
     
@@ -69,12 +69,15 @@ class CmTraceParser {
         
         // If it still is null, try the message only regex
         if items.count == 0 {
-            logger.warning("Trying message only match as all other parsers failed!")
+            logger.warning("Trying message only match as all other parsers failed for line '\(value, privacy: .public)'")
             items = value.namedCaptureGroupsInMatches(of: regExMsgOnly)
         }
         
         // we need at least one match
-        guard items.count >= 1 else { return nil }
+        guard items.count >= 1 else {
+            logger.error("Could not parse line '\(value, privacy: .public)' with any parser!")
+            return nil
+        }
         return items[0]
     }
     

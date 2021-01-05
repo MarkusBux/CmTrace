@@ -12,6 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var highlightErrorMenuItem: NSMenuItem!
     @IBOutlet weak var highlightWarningMenuItem: NSMenuItem!
+    @IBOutlet weak var detailViewMenuItem: NSMenuItem!
     
     
     private var preferencesController:NSWindowController?

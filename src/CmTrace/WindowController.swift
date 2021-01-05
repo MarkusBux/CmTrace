@@ -14,7 +14,9 @@ class WindowController: NSWindowController, NSWindowDelegate {
     @IBOutlet var highlightError: NSButton!
     
     /// Currently loaded table view controller within the content root controller
-    private var tableViewController:TableViewViewController!
+    private lazy var tableViewController:TableViewViewController! = { splitViewController.children[0] as! TableViewViewController }()
+    private lazy var detailViewController:NSViewController! = { splitViewController.children[1] }()
+    private lazy var splitViewController: NSSplitViewController = { self.contentViewController as! NSSplitViewController }()
     
     /// Shortcut to the Application Delegate
     private var appDelegate:AppDelegate! = {(NSApp.delegate as! AppDelegate)}()
@@ -64,17 +66,24 @@ class WindowController: NSWindowController, NSWindowDelegate {
         currentWarningState = currentWarningState.toogledOnOff()
     }
     
+    @IBAction func collapseDetailViewToogle(_ sender: Any) {
+        guard let detailSplitItem = splitViewController.splitViewItem(for: detailViewController) else { return }
+        detailSplitItem.animator().isCollapsed.toggle()
+        appDelegate.detailViewMenuItem.title = detailSplitItem.isCollapsed ? "Show Detail View" : "Hide Detail View"
+    }
+    
+    
     override func windowDidLoad() {
         super.windowDidLoad()
-        // Get and assign the default table view controller
-        tableViewController = ((contentViewController as! NSSplitViewController).children[0] as! TableViewViewController)
-        
+        // Set the default preference for openDialog on new window
         tableViewController.presentOpenFileDialogOnLoad = AppPreferences.shared.presentOpenFileDialogOnLoad
         
         // We do not want to track the global state.
         // Instead we just use it as independent starting point for the view hierarchy
         currentErrorState = AppPreferences.shared.highlightErrorMessages ? .on : .off
         currentWarningState = AppPreferences.shared.highlightWarningMessages ? .on : .off
+        
+        
     }
     
     func windowWillClose(_ notification: Notification) {

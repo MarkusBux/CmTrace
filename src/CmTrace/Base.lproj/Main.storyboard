@@ -93,18 +93,6 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
-                                            </connections>
-                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -340,6 +328,12 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="91j-jA-w1K"/>
+                                        <menuItem title="Hide Detail View" keyEquivalent="d" id="MkT-ko-nSv">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="collapseDetailViewToogle:" target="Ady-hI-5gd" id="L2Y-gS-fXn"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Highlight Error Messages" state="on" id="H31-VC-eSE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -400,6 +394,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CmTrace" customModuleProvider="target">
                     <connections>
+                        <outlet property="detailViewMenuItem" destination="MkT-ko-nSv" id="4A8-Vb-FDg"/>
                         <outlet property="highlightErrorMenuItem" destination="H31-VC-eSE" id="fvP-ac-yuh"/>
                         <outlet property="highlightWarningMenuItem" destination="gDi-uW-0Zf" id="VQ3-Ev-Va3"/>
                     </connections>
@@ -562,18 +557,18 @@
         <scene sceneID="kQY-Us-XCc">
             <objects>
                 <viewController id="yKG-Uc-8MV" customClass="TableViewViewController" customModule="CmTrace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="OjV-1T-Z9D">
-                        <rect key="frame" x="0.0" y="0.0" width="944" height="338"/>
+                    <view key="view" misplaced="YES" id="OjV-1T-Z9D">
+                        <rect key="frame" x="0.0" y="0.0" width="944" height="310"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="45" horizontalPageScroll="10" verticalLineScroll="45" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-gY-v5b">
-                                <rect key="frame" x="0.0" y="0.0" width="944" height="338"/>
+                                <rect key="frame" x="0.0" y="0.0" width="944" height="282"/>
                                 <clipView key="contentView" drawsBackground="NO" id="bvB-C0-nKO">
-                                    <rect key="frame" x="1" y="1" width="942" height="336"/>
+                                    <rect key="frame" x="1" y="1" width="942" height="280"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" headerView="lW7-3T-aUp" viewBased="YES" id="Pyl-xM-0hf">
-                                            <rect key="frame" x="0.0" y="0.0" width="942" height="308"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="942" height="252"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -22,6 +22,18 @@ class WindowController: NSWindowController, NSWindowDelegate {
     private let errorIconOff = "xmark.octagon"
     private let warningIconOn = "exclamationmark.triangle.fill"
     private let warningIconOff = "exclamationmark.triangle"
+    
+    private var isDraggingActive: Bool = false{
+        didSet {
+            if isDraggingActive {
+                splitViewController.view.layer?.borderWidth = 2.0
+                splitViewController.view.layer?.borderColor = NSColor.systemBlue.cgColor
+            } else {
+                splitViewController.view.layer?.borderWidth = 0.0
+
+            }
+        }
+    }
 
     
     /// Shortcut to the Application Delegate
@@ -100,7 +112,8 @@ class WindowController: NSWindowController, NSWindowDelegate {
         currentErrorState = AppPreferences.shared.highlightErrorMessages ? .on : .off
         currentWarningState = AppPreferences.shared.highlightWarningMessages ? .on : .off
         
-        
+        // register thiw window to allow dropping file urls to the window
+        window?.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
     }
     
     func windowWillClose(_ notification: Notification) {
@@ -115,6 +128,93 @@ class WindowController: NSWindowController, NSWindowDelegate {
     }
 
 }
+
+// MARK: - Handling Drag & Drop operations
+extension WindowController: NSDraggingDestination {
+    
+    func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        // method can be removed as true is the default.
+        // just added this to play around
+        return true
+    }
+    
+    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        // if at least one object can be read
+        if let items = sender.draggingPasteboard.readValidLogFileUrls() {
+            sender.numberOfValidItemsForDrop = items.count
+            isDraggingActive = true
+            return .copy
+        }
+        return NSDragOperation()
+    }
+    
+    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard let files = sender.draggingPasteboard.readValidLogFileUrls() else { return false }
+        
+        tableViewController.loadFiles(files)
+        
+        return true
+    }
+    
+    func concludeDragOperation(_ sender: NSDraggingInfo?) {
+        // Called when the dragOperation is complete
+        // Do any cleanup here - if needed
+        
+        // Set the destination window to be front window
+        sender?.draggingDestinationWindow?.orderFrontRegardless()
+    }
+    
+    func draggingEnded(_ sender: NSDraggingInfo) {
+        isDraggingActive = false
+    }
+    
+    func draggingExited(_ sender: NSDraggingInfo?) {
+        isDraggingActive = false
+    }
+}
+
+extension NSPasteboard {
+    /// Default pasteboard reading options
+    ///
+    /// Allow only types that are represantable as NSStrings and limit to file URLs only
+    private var pasteboardReadOptions:[NSPasteboard.ReadingOptionKey : Any] {
+        let type = NSString.readableTypeIdentifiersForItemProvider
+        let readOptions = [NSPasteboard.ReadingOptionKey.urlReadingFileURLsOnly: true,
+                           NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: type as Any]
+        return readOptions
+    }
+    
+    /// Determine if valid log file urls are available
+    fileprivate var hasValidLogFileUrls: Bool {
+        guard readValidLogFileUrls() != nil else { return false}
+        return true
+    }
+    
+    /// Reads the `URLs`s from the pasteboard with a valid log extension
+    fileprivate func readValidLogFileUrls() -> [URL]? {
+        guard let items = readObjects(forClasses: [NSURL.self], options: pasteboardReadOptions), items.count > 0 else { return nil }
+        var files = [URL]()
+        for item in items {
+            if let url = item as? URL, url.hasValidLogPathExtension {
+                files.append(url)
+            }
+        }
+        guard files.count > 0 else { return nil }
+        
+        return files
+    }
+}
+
+extension URL {
+    fileprivate var hasValidLogPathExtension: Bool {
+        if pathExtension.localizedCaseInsensitiveCompare("log") == .orderedSame
+            || pathExtension.localizedCaseInsensitiveCompare("lo_") == .orderedSame {
+            return true
+        }
+        return false
+    }
+}
+
 
 // MARK: - Touch Bar Handling
 extension NSTouchBarItem.Identifier {

@@ -6,9 +6,11 @@
 //
 
 import Cocoa
+import os
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "\(AppDelegate.self)")
 
     @IBOutlet weak var highlightErrorMenuItem: NSMenuItem!
     @IBOutlet weak var highlightWarningMenuItem: NSMenuItem!
@@ -62,8 +64,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        print("openFiles: \(filenames.description)")
-        let urls = filenames.compactMap({URL(string: $0)})
+        logger.debug("Try to open: '\(filenames)'")
+        let urls = filenames.compactMap({URL(fileURLWithPath: $0)})
+        guard urls.count > 0 else {
+            logger.error("Could not convert any filename to a valid URL!")
+            return
+        }
         openFilesWithMainWindow(urls)
     }
     

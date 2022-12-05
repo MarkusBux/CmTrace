@@ -25,6 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowControllers:[WindowController] = []
     
     
+    override init() {
+        super.init()
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }

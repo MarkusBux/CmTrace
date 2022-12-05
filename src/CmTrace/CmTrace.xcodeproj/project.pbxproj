@@ -23,6 +23,7 @@
 		DFA96DE0258BAD7500825157 /* GeneralPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA96DDF258BAD7500825157 /* GeneralPreferenceController.swift */; };
 		F71325AC293E1A8800B7A73A /* libCmTraceParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */; };
 		F71325AD293E1A8800B7A73A /* libCmTraceParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F71325B0293E3CA500B7A73A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71325AF293E3CA500B7A73A /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,7 @@
 		DFA96DDB258BA9CA00825157 /* PreferenceTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceTabViewController.swift; sourceTree = "<group>"; };
 		DFA96DDF258BAD7500825157 /* GeneralPreferenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceController.swift; sourceTree = "<group>"; };
 		F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libCmTraceParser.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		F71325AF293E3CA500B7A73A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		DF4ED410258347FB009FCA87 = {
 			isa = PBXGroup;
 			children = (
+				F71325AF293E3CA500B7A73A /* DetailViewController.swift */,
 				DF4ED41C258347FB009FCA87 /* AppDelegate.swift */,
 				DF7B99C2258B664E00E843C1 /* AppPreferences.swift */,
 				DF4ED42025834802009FCA87 /* Assets.xcassets */,
@@ -214,6 +217,7 @@
 				DF7B99C3258B664E00E843C1 /* AppPreferences.swift in Sources */,
 				DFA96DD8258BA97200825157 /* PreferenceWindowController.swift in Sources */,
 				DF8CA9A8258A2C4A00626ACF /* TableViewController.swift in Sources */,
+				F71325B0293E3CA500B7A73A /* DetailViewController.swift in Sources */,
 				DF8CA9B5258A38DF00626ACF /* Int-Compare.swift in Sources */,
 				DF8CA9A2258A2C1C00626ACF /* WindowController.swift in Sources */,
 				DF4ED44025838FDA009FCA87 /* LogItem.swift in Sources */,

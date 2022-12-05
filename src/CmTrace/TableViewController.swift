@@ -160,8 +160,8 @@ extension TableViewViewController: NSTableViewDelegate {
         guard tableView.selectedRow != -1 else { return }
         guard let splitViewController = parent as? NSSplitViewController else { return }
         
-        let detailViewController = splitViewController.children[1]
-        detailViewController.representedObject = dataStore.entries[tableView.selectedRow]
+        guard let detailViewController = splitViewController.children[1] as? DetailViewController else {return}
+        detailViewController.displayLogItem(dataStore.entries[tableView.selectedRow])
     }
     
     

@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		DF0099D82591F15B0081CA6D /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0099D72591F15B0081CA6D /* ProgressViewController.swift */; };
 		DF2F3D03258BF79600EDE5B5 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF2F3D02258BF79600EDE5B5 /* Preferences.storyboard */; };
-		DF4A21062591E2130083F37E /* CmTraceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4A21032591E2130083F37E /* CmTraceParser.swift */; };
-		DF4A210D2591E2DA0083F37E /* String-Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4A210C2591E2DA0083F37E /* String-Date.swift */; };
-		DF4A21112591E3810083F37E /* CmLogElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4A21102591E3810083F37E /* CmLogElement.swift */; };
-		DF4A21142591E3A30083F37E /* String-RegEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4A21132591E3A30083F37E /* String-RegEx.swift */; };
 		DF4ED41D258347FB009FCA87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4ED41C258347FB009FCA87 /* AppDelegate.swift */; };
 		DF4ED42125834802009FCA87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF4ED42025834802009FCA87 /* Assets.xcassets */; };
 		DF4ED42425834802009FCA87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF4ED42225834802009FCA87 /* Main.storyboard */; };
@@ -25,7 +21,6 @@
 		DFA96DD8258BA97200825157 /* PreferenceWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA96DD7258BA97200825157 /* PreferenceWindowController.swift */; };
 		DFA96DDC258BA9CA00825157 /* PreferenceTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA96DDB258BA9CA00825157 /* PreferenceTabViewController.swift */; };
 		DFA96DE0258BAD7500825157 /* GeneralPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA96DDF258BAD7500825157 /* GeneralPreferenceController.swift */; };
-		DFBFEB1F25A361910049813B /* StringProtocol-Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBFEB1E25A361910049813B /* StringProtocol-Index.swift */; };
 		F71325AC293E1A8800B7A73A /* libCmTraceParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */; };
 		F71325AD293E1A8800B7A73A /* libCmTraceParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -47,10 +42,6 @@
 /* Begin PBXFileReference section */
 		DF0099D72591F15B0081CA6D /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		DF2F3D02258BF79600EDE5B5 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
-		DF4A21032591E2130083F37E /* CmTraceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmTraceParser.swift; sourceTree = "<group>"; };
-		DF4A210C2591E2DA0083F37E /* String-Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Date.swift"; sourceTree = "<group>"; };
-		DF4A21102591E3810083F37E /* CmLogElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CmLogElement.swift; sourceTree = "<group>"; };
-		DF4A21132591E3A30083F37E /* String-RegEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-RegEx.swift"; sourceTree = "<group>"; };
 		DF4ED419258347FB009FCA87 /* CmTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CmTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF4ED41C258347FB009FCA87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF4ED42025834802009FCA87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,7 +57,6 @@
 		DFA96DD7258BA97200825157 /* PreferenceWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceWindowController.swift; sourceTree = "<group>"; };
 		DFA96DDB258BA9CA00825157 /* PreferenceTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceTabViewController.swift; sourceTree = "<group>"; };
 		DFA96DDF258BAD7500825157 /* GeneralPreferenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceController.swift; sourceTree = "<group>"; };
-		DFBFEB1E25A361910049813B /* StringProtocol-Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol-Index.swift"; sourceTree = "<group>"; };
 		F71325AB293E1A8800B7A73A /* libCmTraceParser.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libCmTraceParser.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,17 +72,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DF4A20EA2591E2130083F37E /* CmTraceParser */ = {
-			isa = PBXGroup;
-			children = (
-				DF4A21032591E2130083F37E /* CmTraceParser.swift */,
-				DF4A21102591E3810083F37E /* CmLogElement.swift */,
-				DF4A210C2591E2DA0083F37E /* String-Date.swift */,
-				DF4A21132591E3A30083F37E /* String-RegEx.swift */,
-			);
-			path = CmTraceParser;
-			sourceTree = "<group>";
-		};
 		DF4ED410258347FB009FCA87 = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +79,6 @@
 				DF7B99C2258B664E00E843C1 /* AppPreferences.swift */,
 				DF4ED42025834802009FCA87 /* Assets.xcassets */,
 				DF4ED42625834802009FCA87 /* CmTrace.entitlements */,
-				DF4A20EA2591E2130083F37E /* CmTraceParser */,
 				DF8CA9B3258A38C200626ACF /* Helper */,
 				DF4ED42525834802009FCA87 /* Info.plist */,
 				DF4ED42225834802009FCA87 /* Main.storyboard */,
@@ -143,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				DF8CA9B4258A38DF00626ACF /* Int-Compare.swift */,
-				DFBFEB1E25A361910049813B /* StringProtocol-Index.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -236,19 +213,14 @@
 			files = (
 				DF7B99C3258B664E00E843C1 /* AppPreferences.swift in Sources */,
 				DFA96DD8258BA97200825157 /* PreferenceWindowController.swift in Sources */,
-				DF4A21112591E3810083F37E /* CmLogElement.swift in Sources */,
-				DFBFEB1F25A361910049813B /* StringProtocol-Index.swift in Sources */,
 				DF8CA9A8258A2C4A00626ACF /* TableViewController.swift in Sources */,
 				DF8CA9B5258A38DF00626ACF /* Int-Compare.swift in Sources */,
-				DF4A21062591E2130083F37E /* CmTraceParser.swift in Sources */,
 				DF8CA9A2258A2C1C00626ACF /* WindowController.swift in Sources */,
 				DF4ED44025838FDA009FCA87 /* LogItem.swift in Sources */,
 				DF8CA9B9258A3CBE00626ACF /* CmLogItems.swift in Sources */,
 				DFA96DE0258BAD7500825157 /* GeneralPreferenceController.swift in Sources */,
 				DF0099D82591F15B0081CA6D /* ProgressViewController.swift in Sources */,
-				DF4A21142591E3A30083F37E /* String-RegEx.swift in Sources */,
 				DF4ED41D258347FB009FCA87 /* AppDelegate.swift in Sources */,
-				DF4A210D2591E2DA0083F37E /* String-Date.swift in Sources */,
 				DFA96DDC258BA9CA00825157 /* PreferenceTabViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -44,7 +44,7 @@ class TableViewViewController: NSViewController {
     
     override func viewDidAppear() {
         tableView.rowSizeStyle = .small
-        if presentOpenFileDialogOnLoad && dataStore.loadedFiles.count == 0 {
+        if presentOpenFileDialogOnLoad && !dataStore.hasLoadedData {
             let p = appDelegate.openLogFilePanel
             p.beginSheetModal(for: view.window!) { (response) in
                 guard response == NSApplication.ModalResponse.OK else { return }
@@ -64,30 +64,33 @@ class TableViewViewController: NSViewController {
         p!.totalFileCount = files.count
         p!.processedFileCount = 0
 
-        DispatchQueue.global().async { [weak self] in
+        Task {
+            await dataStore.loadFileEntries(for: files, onFileProcessed: { url in
+                Task {
+                        self.increaseFileProcessedCount(p!)
+                }
+            })
 
-            self?.dataStore.loadFileEntries(for: files, onFileProcessed: {file in
-                DispatchQueue.main.async {
-                    // update progress on every file processed info
-                    p!.processedFileCount += 1
-                }
-            }) { files, _ in
-                DispatchQueue.main.async {
-                    // reaload the table after loading the files
-                    self?.sortTableByLastAppliedSortDescriptor()
-                    self?.reloadTableViewAndKeepSelection()
-                    
-                    // set the new title and subtitle of the window
-                    self?.setWindowSubTitle()
-                    
-                    // update the toolbars and dismiss the progress view
-                    if let wc = self?.view.window?.windowController as? WindowController {
-                        wc.searchTextField.stringValue = ""
-                        self?.dismiss(p!)
-                    }
-                }
-            }
+            resetFormAfterLoad(p!)
         }
+        
+    }
+    
+    private func resetFormAfterLoad(_ controller : ProgressViewController) {
+        self.sortTableByLastAppliedSortDescriptor()
+        self.reloadTableViewAndKeepSelection()
+        
+        self.setWindowSubTitle()
+        
+        // update the toolbars and dismiss the progress view
+        if let wc = self.view.window?.windowController as? WindowController {
+            wc.searchTextField.stringValue = ""
+            self.dismiss(controller)
+        }
+    }
+    
+    private func increaseFileProcessedCount(_ controller : ProgressViewController) {
+        controller.processedFileCount += 1
     }
     
     /// Filters the current table for the given search text
@@ -122,8 +125,8 @@ extension TableViewViewController {
         
         self.view.window?.subtitle = subTitle
     }
-    
-    
+
+    @MainActor
     /// Reloads the table view and keeps the current selection
     private func reloadTableViewAndKeepSelection() {
         let selection = tableView.selectedRowIndexes

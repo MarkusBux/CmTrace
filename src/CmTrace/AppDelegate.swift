@@ -7,11 +7,13 @@
 
 import Cocoa
 import os
+import UniformTypeIdentifiers
+
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "\(AppDelegate.self)")
-
+    
     @IBOutlet weak var highlightErrorMenuItem: NSMenuItem!
     @IBOutlet weak var highlightWarningMenuItem: NSMenuItem!
     @IBOutlet weak var detailViewMenuItem: NSMenuItem!
@@ -23,14 +25,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowControllers:[WindowController] = []
     
     
+    override init() {
+        super.init()
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
-
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
+    
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         true
     }
@@ -55,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let p = openLogFilePanel
         p.beginSheetModal(for: NSApp.mainWindow!) { result in
             guard result == NSApplication.ModalResponse.OK else { return }
-
+            
             for url in p.urls {
                 NSDocumentController.shared.noteNewRecentDocumentURL(url)
             }
@@ -103,7 +109,7 @@ extension AppDelegate {
         p.allowsMultipleSelection = true
         p.canChooseDirectories = false
         p.canChooseFiles = true
-        p.allowedFileTypes = ["log", "lo_"]
+        p.allowedContentTypes = [.log]
         return p
     }
 }

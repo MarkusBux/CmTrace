@@ -6,6 +6,15 @@ The main purpose of this project is to learn Swift and macOS programming with a 
 
 ![Screenshot](doc/images/CmTraceForMac.png)
 
+**Features**
+* Load a single file
+* Load multuple files to track an operation throughout different componets
+* Open logfiles in different windows
+* Search
+* Sort by columns (over all loaded entries)
+* Highlighting of `Warning` and `Error` severity
+* Highlighting of message entries with `Warning` or `Error` keyword   
+
 # Contribute
 
 Contributions are welcome.

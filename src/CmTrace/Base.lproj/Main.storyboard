@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -562,13 +562,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="45" horizontalPageScroll="10" verticalLineScroll="45" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-gY-v5b">
-                                <rect key="frame" x="0.0" y="0.0" width="944" height="226"/>
+                                <rect key="frame" x="0.0" y="0.0" width="944" height="47"/>
                                 <clipView key="contentView" drawsBackground="NO" id="bvB-C0-nKO">
-                                    <rect key="frame" x="1" y="1" width="942" height="224"/>
+                                    <rect key="frame" x="1" y="1" width="942" height="45"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" headerView="lW7-3T-aUp" viewBased="YES" id="Pyl-xM-0hf">
-                                            <rect key="frame" x="0.0" y="0.0" width="942" height="196"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="942" height="45"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -793,10 +793,10 @@
             </objects>
             <point key="canvasLocation" x="986" y="1288"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="HcQ-vj-6iy">
             <objects>
-                <viewController id="5ts-rn-gfy" sceneMemberID="viewController">
+                <viewController id="5ts-rn-gfy" customClass="DetailViewController" customModule="CmTrace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="cgq-25-01O">
                         <rect key="frame" x="0.0" y="0.0" width="776" height="343"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -857,7 +857,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Ca-Vz-zbK">
-                                <rect key="frame" x="112" y="307" width="646" height="16"/>
+                                <rect key="frame" x="112" y="307" width="555" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" placeholderString="Timestamp" id="Jll-o3-hBF">
                                     <dateFormatter key="formatter" formatterBehavior="custom10_4" dateStyle="short" timeStyle="long" dateFormat="yyyy-MM-dd HH:mm:ss.sss" id="Rcy-Xa-4iC"/>
                                     <font key="font" metaFont="system"/>
@@ -890,12 +890,29 @@
                                     </binding>
                                 </connections>
                             </textField>
+                            <textField focusRingType="none" verticalHuggingPriority="750" misplaced="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COR-Jz-ul5">
+                                <rect key="frame" x="673" y="301" width="79" height="22"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Severity" drawsBackground="YES" usesSingleLineMode="YES" id="yQs-Lv-wW5">
+                                    <font key="font" metaFont="systemBold" size="10"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="5ts-rn-gfy" name="value" keyPath="self.logLevel" id="spq-hp-yd4">
+                                        <dictionary key="options">
+                                            <string key="NSNullPlaceholder">N/A</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2Ca-Vz-zbK" secondAttribute="trailing" constant="20" symbolic="YES" id="0Tl-Fn-hnN"/>
+                            <constraint firstItem="COR-Jz-ul5" firstAttribute="top" secondItem="cgq-25-01O" secondAttribute="top" constant="20" symbolic="YES" id="28V-yX-xfN"/>
                             <constraint firstItem="boU-k4-p77" firstAttribute="top" secondItem="cgq-25-01O" secondAttribute="top" constant="20" symbolic="YES" id="5Tg-FG-yhH"/>
                             <constraint firstItem="Bgz-Mu-KZO" firstAttribute="top" secondItem="boU-k4-p77" secondAttribute="bottom" constant="8" symbolic="YES" id="6k5-uP-9TZ"/>
                             <constraint firstItem="Bgz-Mu-KZO" firstAttribute="leading" secondItem="cgq-25-01O" secondAttribute="leading" constant="20" symbolic="YES" id="8SE-um-tY5"/>
+                            <constraint firstAttribute="trailing" secondItem="COR-Jz-ul5" secondAttribute="trailing" constant="24" id="B20-tJ-c7e"/>
+                            <constraint firstAttribute="trailing" secondItem="2Ca-Vz-zbK" secondAttribute="trailing" constant="111" id="BIj-ek-Igr"/>
                             <constraint firstItem="2Ca-Vz-zbK" firstAttribute="leading" secondItem="boU-k4-p77" secondAttribute="trailing" constant="8" symbolic="YES" id="I5J-C4-SlI"/>
                             <constraint firstItem="boU-k4-p77" firstAttribute="leading" secondItem="cgq-25-01O" secondAttribute="leading" constant="20" symbolic="YES" id="LXi-lb-lh1"/>
                             <constraint firstAttribute="trailing" secondItem="BQX-bU-DsO" secondAttribute="trailing" constant="20" symbolic="YES" id="NN8-OB-Grf"/>
@@ -908,17 +925,20 @@
                             <constraint firstAttribute="trailing" secondItem="sBt-Ns-KYT" secondAttribute="trailing" constant="20" symbolic="YES" id="rIK-Lx-DGN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="severityLabel" destination="COR-Jz-ul5" id="Tg8-xD-9b8"/>
+                    </connections>
                 </viewController>
                 <customObject id="TwA-bE-Nma" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController representsSharedInstance="YES" id="ukh-q0-EjE"/>
+                <userDefaultsController representsSharedInstance="YES" id="7gd-y7-rKb"/>
             </objects>
-            <point key="canvasLocation" x="-100" y="1587"/>
+            <point key="canvasLocation" x="-167" y="1726.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="exclamationmark.triangle" catalog="system" width="17" height="15"/>
         <image name="exclamationmark.triangle.fill" catalog="system" width="17" height="15"/>
-        <image name="xmark.octagon" catalog="system" width="16" height="15"/>
-        <image name="xmark.octagon.fill" catalog="system" width="16" height="15"/>
+        <image name="xmark.octagon" catalog="system" width="17" height="15"/>
+        <image name="xmark.octagon.fill" catalog="system" width="17" height="15"/>
     </resources>
 </document>

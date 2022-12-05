@@ -8,11 +8,12 @@
 import Foundation
 import Combine
 import os
+import CmTraceParser
 
 class CmLogItems {
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "\(CmLogItems.self)")
     
-    private let parser = CmTraceParser()
+    private let loader = CmLogFileLoader.Default
     private var logItems:[URL:[LogItem]] {
         didSet {
             logger.debug("Setting value for internal logItems.")
@@ -37,50 +38,54 @@ class CmLogItems {
     /// Count of all loaded log entries regardless of some filters
     private (set) var totalEntriesCount:Int
     
+    var hasLoadedData: Bool { loadedFiles.count > 0 }
+    
     /// Array of files used to load the entries
     private (set) var loadedFiles:[URL]
     
     
+    typealias onFileProcessedCallback = (URL) -> Void
+    
     // MARK: - Intents
     /// Load all items from the requested files asynchronously
-    func loadFileEntries(for files:[URL], onFileProcessed: ((URL) -> Void)? = nil ,onComplete:((_ files:[URL], _ loadedLogItems:[LogItem]?) -> Void)? = nil) {
-        let lock = NSLock()
+    func loadFileEntries(for files:[URL], onFileProcessed: onFileProcessedCallback? = nil)  async {
         
         var result:[URL: [LogItem]] = [:]
         
-        let grp = DispatchGroup()
-        
-        logger.debug("Queuing parsing jobs for '\(files.count)' file(s)")
-        let _ = DispatchQueue.global(qos: .userInitiated)
-        DispatchQueue.concurrentPerform(iterations: files.count) { [weak self] idx in
-            grp.enter()
-            let file = files[idx]
-            do {
-                if let items = try self?.parser.parseFile(file) {
-                    logger.debug("Retrieved '\(items.count)' entries from file '\(file)'")
-                    let logItems = items.compactMap( {item in
-                        LogItem(cmLogItem: item)
-                    })
-                    lock.lock()
-                    result[file] = logItems
-                    lock.unlock()
-                    onFileProcessed?(file)
-                } else {
-                    logger.error("self is nil. Cannot parse file!")
+        let res = await withTaskGroup(of: (URL, [LogEntry]).self) { group in
+            for file in files {
+                group.addTask(priority: TaskPriority.userInitiated) {
+                    do {
+                        let entries = try await self.loader.ParseFile(file)
+                        self.logger.debug("Retrieved '\(entries.count)' entries from file '\(file)'")
+                        return(file, entries)
+                    }
+                    catch {
+                        self.logger.error("Error while parsing file '\(file, privacy: .public)'. \(error.localizedDescription, privacy: .public)")
+                        return (file, [])
+                    }
                 }
             }
-            catch {
-                logger.error("Error while parsing file '\(file, privacy: .public)'. \(error.localizedDescription, privacy: .public)")
-            }
-            grp.leave()
+
+            var entries:[URL:[LogItem]] = [:]
             
+            for await (fileUrl, fileEntries) in group {
+                let logItems = fileEntries.compactMap( {item in
+                    LogItem(cmLogItem: item)
+                })
+                
+                entries[fileUrl] = logItems
+                onFileProcessed?(fileUrl)
+            }
+            
+            return entries
         }
 
-        grp.notify(queue: DispatchQueue.main) { [weak self] in
-            guard self != nil else { return }
-            self!.logItems = result
-            onComplete?(files, self!.entries)
+
+        for data in res {
+            result[data.key] = data.value
         }
+        self.logItems = result
     }
     
     /// Filter the loaded entries by the given string
@@ -137,7 +142,7 @@ class CmLogItems {
 
 // MARK: - "Casting" Initializer
 extension LogItem {
-    convenience init(cmLogItem item: CmLogElement) {
+    convenience init(cmLogItem item: LogEntry) {
         self.init(item.message, timestamp: item.timestamp)
         
         self.operationId = String(item.threadId ?? -1)

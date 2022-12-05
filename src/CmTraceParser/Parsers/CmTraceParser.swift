@@ -10,7 +10,7 @@ import Foundation
 public class CmTraceParser: LogFileParser{
    
     
-    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/.ignoresCase()
+    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/.ignoresCase().dotMatchesNewlines()
     let logStarteToken = "<![LOG["
     let logEndToken = "]LOG]!>"
     
@@ -66,6 +66,7 @@ public class CmTraceParser: LogFileParser{
             return LogEntry(String(message), threadId: threadId, timestamp: timestamp, component: String(component), logLevel: type, logFile: String(file),context: String(context))
         }
         
+        let t = String(line)
         return LogEntry(line)
     }
     

@@ -8,8 +8,8 @@
 import Foundation
 public class CmTraceParser2: LogFileParser{
    
-    let checkPattern = /\s\s\$\$\<.*\>/.ignoresCase()
-    let pattern = /^(?<Message>.*)\s\s\$\$\<(?<Component>.*?)\><(?<Timestamp>.*?)(?<Offset>[-+]\d{1,3})\><thread=(?<TID>\d+).*\>/.ignoresCase().dotMatchesNewlines()
+    let checkPattern = /\s{1,2}\$\$\<.*\>/.ignoresCase()
+    let pattern = /^(?<Message>.*)\s{1,2}\$\$\<(?<Component>.*?)\><(?<Timestamp>.*?)(?<Offset>[-+]\d{1,3})\><thread=(?<TID>\d+).*\>/.ignoresCase().dotMatchesNewlines()
     
    
     public init(){}

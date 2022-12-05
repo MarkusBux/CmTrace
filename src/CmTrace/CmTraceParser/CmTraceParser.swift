@@ -236,7 +236,7 @@ extension Array where Element : StringProtocol {
     /// Appends the value to the array in case it is not empty
     ///
     /// - parameter value: The value to append
-    /// - returns: `true` if appended, otherwise `false
+    /// - returns: `true` if appended, otherwise `false`
     fileprivate mutating func appendIfNotEmpty(_ value: String) -> Bool{
         guard !value.isEmpty else { return false}
         let tmp = prepareForAppend(value) as! Element

@@ -43,6 +43,7 @@ class TableViewViewController: NSViewController {
     }
     
     override func viewDidAppear() {
+        tableView.rowSizeStyle = .small
         if presentOpenFileDialogOnLoad && dataStore.loadedFiles.count == 0 {
             let p = appDelegate.openLogFilePanel
             p.beginSheetModal(for: view.window!) { (response) in

@@ -448,7 +448,7 @@
                                 <toolbarItem implicitItemIdentifier="11CD4736-9F59-4710-B67A-CFFC95EC46B9" label="Highlight Error" paletteLabel="Highlight Error" image="xmark.octagon" catalog="system" sizingBehavior="auto" id="ffK-fn-YbE">
                                     <nil key="toolTip"/>
                                     <button key="view" toolTip="Highlight messages containing 'fail' or 'error'" verticalHuggingPriority="750" id="OPb-7J-DSB">
-                                        <rect key="frame" x="28" y="14" width="28" height="23"/>
+                                        <rect key="frame" x="28" y="14" width="29" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="xmark.octagon" catalog="system" imagePosition="only" alignment="center" alternateImage="xmark.octagon.fill" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="x58-J6-YKL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -558,13 +558,13 @@
             <objects>
                 <viewController id="yKG-Uc-8MV" customClass="TableViewViewController" customModule="CmTrace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="OjV-1T-Z9D">
-                        <rect key="frame" x="0.0" y="0.0" width="944" height="310"/>
+                        <rect key="frame" x="0.0" y="0.0" width="944" height="254"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="45" horizontalPageScroll="10" verticalLineScroll="45" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-gY-v5b">
-                                <rect key="frame" x="0.0" y="0.0" width="944" height="47"/>
+                                <rect key="frame" x="0.0" y="0.0" width="944" height="58"/>
                                 <clipView key="contentView" drawsBackground="NO" id="bvB-C0-nKO">
-                                    <rect key="frame" x="1" y="1" width="942" height="45"/>
+                                    <rect key="frame" x="1" y="1" width="942" height="56"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" headerView="lW7-3T-aUp" viewBased="YES" id="Pyl-xM-0hf">

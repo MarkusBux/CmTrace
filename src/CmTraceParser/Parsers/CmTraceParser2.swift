@@ -15,7 +15,16 @@ public class CmTraceParser2: LogFileParser{
     public init(){}
     
     public func canParse(_ content: String) -> Bool {
-        if let _ = content.firstMatch(of: checkPattern) {
+        let c1 = String(content.lines[0])
+        let c2 = String(content.lines[1])
+        let c3 = String(content.lines[2])
+        if let _ = c1.firstMatch(of: checkPattern) {
+            return true
+        }
+        if let _ = c2.firstMatch(of: checkPattern) {
+            return true
+        }
+        if let _ = c3.firstMatch(of: checkPattern) {
             return true
         }
         return false
@@ -42,7 +51,8 @@ public class CmTraceParser2: LogFileParser{
     }
     
     private func parseLineEntry(_ line: String.SubSequence) -> LogEntry {
-        if let match = line.firstMatch(of: pattern) {
+        let l = String(line)
+        if let match = l.firstMatch(of: pattern) {
             let message = match.output.Message
             let threadId = Int(match.output.TID) ?? 0
             let type = LogEntry.Severity.Information

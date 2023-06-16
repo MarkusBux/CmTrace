@@ -64,14 +64,14 @@ class TableViewViewController: NSViewController {
         p!.totalFileCount = files.count
         p!.processedFileCount = 0
 
-        Task {
-            await dataStore.loadFileEntries(for: files, onFileProcessed: { url in
+        Task.detached(priority: .high) {
+            await self.dataStore.loadFileEntries(for: files, onFileProcessed: { url in
                 Task {
-                        self.increaseFileProcessedCount(p!)
+                        await self.increaseFileProcessedCount(p!)
                 }
             })
 
-            resetFormAfterLoad(p!)
+            await self.resetFormAfterLoad(p!)
         }
         
     }
@@ -89,6 +89,7 @@ class TableViewViewController: NSViewController {
         }
     }
     
+    @MainActor
     private func increaseFileProcessedCount(_ controller : ProgressViewController) {
         controller.processedFileCount += 1
     }

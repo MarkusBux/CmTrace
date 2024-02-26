@@ -10,7 +10,14 @@ import Foundation
 public class CmTraceParser: LogFileParser{
    
     
-    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/.ignoresCase().dotMatchesNewlines()
+    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/
+            .ignoresCase()
+            .dotMatchesNewlines()
+    
+    let timePattern = /^(?<Time>[\d:.].*)(?<Offset>[-+]\d{1,3})/
+        .ignoresCase()
+        .dotMatchesNewlines()
+    
     let logStartToken = "<![LOG["
     let logEndToken = "]LOG]!>"
     
@@ -60,8 +67,15 @@ public class CmTraceParser: LogFileParser{
             let file = match.output.Reference!
             
             var timestamp:Date? = nil
-            if let dt = "\(match.output.Date ?? "") \(match.output.Time ?? "")".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSSSSSS") {
-                timestamp = dt
+
+            if let tMatch = match.output.Time?.firstMatch(of: timePattern) {
+                if let dt = "\(match.output.Date ?? "") \(tMatch.output.Time)".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSS", minuteOffsetToUtc: Int(tMatch.output.Offset) ?? 0) {
+                    timestamp = dt
+                }
+            } else {
+                if let dt = "\(match.output.Date ?? "") \(match.output.Time ?? "")".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSSSSSS") {
+                    timestamp = dt
+                }
             }
             
             return LogEntry(String(message), threadId: threadId, timestamp: timestamp, component: String(component), logLevel: type, logFile: String(file),context: String(context))

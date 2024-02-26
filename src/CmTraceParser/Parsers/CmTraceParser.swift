@@ -56,6 +56,7 @@ public class CmTraceParser: LogFileParser{
     }
     
     private func parseLineEntry(_ line: String.SubSequence) -> LogEntry {
+
         let l = String(line)
         
         if let match = l.firstMatch(of: pattern) {
@@ -93,6 +94,7 @@ public class CmTraceParser: LogFileParser{
         
         for (idx, rawLine) in rawLines.enumerated() {
             // Check if this is the start of a new entry
+
             if let index = rawLine.firstIndex(of: logStartToken) {
                 // If index == startIndex
                 // 1. add current line to result

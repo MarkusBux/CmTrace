@@ -1,5 +1,6 @@
 //
-//  ParseHandler.swift
+//  CmLogFileLoader.swift
+
 //  CmTraceParser
 //
 //  Created by Markus Bux on 01.12.22.

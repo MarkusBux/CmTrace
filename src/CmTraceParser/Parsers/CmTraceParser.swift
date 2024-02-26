@@ -10,15 +10,22 @@ import Foundation
 public class CmTraceParser: LogFileParser{
    
     
-    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/.ignoresCase().dotMatchesNewlines()
-    let logStarteToken = "<![LOG["
+    let pattern = /\<\!\[LOG\[(?<Message>.*)?\]LOG\]\!\>\<time=\"(?<Time>.+?)?\"\s+date=\"(?<Date>.+?)?\"\s+component=\"(?<Component>.+?)?\"\s+context=\"(?<Context>.*?)?\"\s+type=\"(?<Type>\d)?\"\s+thread=\"(?<TID>\d+)?\"\s+file=\"(?<Reference>.*)?\"\>/
+            .ignoresCase()
+            .dotMatchesNewlines()
+    
+    let timePattern = /^(?<Time>[\d:.].*)(?<Offset>[-+]\d{1,3})/
+        .ignoresCase()
+        .dotMatchesNewlines()
+    
+    let logStartToken = "<![LOG["
     let logEndToken = "]LOG]!>"
     
    
     public init(){}
     
     public func canParse(_ content: String) -> Bool {
-        let logStartIndex = content.firstIndex(of: logStarteToken)
+        let logStartIndex = content.firstIndex(of: logStartToken)
         let logEndIndex = content.firstIndex(of: logEndToken)
         
         if logStartIndex == nil && logEndIndex == nil {
@@ -49,8 +56,10 @@ public class CmTraceParser: LogFileParser{
     }
     
     private func parseLineEntry(_ line: String.SubSequence) -> LogEntry {
+
+        let l = String(line)
         
-        if let match = line.firstMatch(of: pattern) {
+        if let match = l.firstMatch(of: pattern) {
             let message = match.output.Message ?? ""
             let threadId = Int(match.output.TID!) ?? 0
             let type = LogEntry.Severity(rawValue: Int(match.output.Type!) ?? 0) ?? LogEntry.Severity.Unknown
@@ -59,15 +68,21 @@ public class CmTraceParser: LogFileParser{
             let file = match.output.Reference!
             
             var timestamp:Date? = nil
-            if let dt = "\(match.output.Date ?? "") \(match.output.Time ?? "")".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSSSSSS") {
-                timestamp = dt
+
+            if let tMatch = match.output.Time?.firstMatch(of: timePattern) {
+                if let dt = "\(match.output.Date ?? "") \(tMatch.output.Time)".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSS", minuteOffsetToUtc: Int(tMatch.output.Offset) ?? 0) {
+                    timestamp = dt
+                }
+            } else {
+                if let dt = "\(match.output.Date ?? "") \(match.output.Time ?? "")".toDate(dateFormat: "MM-dd-yyyy HH:mm:ss.SSSSSSS") {
+                    timestamp = dt
+                }
             }
             
             return LogEntry(String(message), threadId: threadId, timestamp: timestamp, component: String(component), logLevel: type, logFile: String(file),context: String(context))
         }
         
-        let t = String(line)
-        return LogEntry(line)
+        return LogEntry(l)
     }
     
     private func getSingleRawEntries(_ content: String) -> [String.SubSequence] {
@@ -79,7 +94,8 @@ public class CmTraceParser: LogFileParser{
         
         for (idx, rawLine) in rawLines.enumerated() {
             // Check if this is the start of a new entry
-            if let index = rawLine.firstIndex(of: logStarteToken) {
+
+            if let index = rawLine.firstIndex(of: logStartToken) {
                 // If index == startIndex
                 // 1. add current line to result
                 // 2. reset current line to new log entry start value
